@@ -28,8 +28,8 @@ IPBLOCK %{NUMBER:[event][id]},%{WORD:[observer][interface][id]},%{WORD:[observer
 DNSBL %{IPORHOST:[destination][address]},%{IP:[client][ip]},%{DATA:[client][useragent]},%{WORD:[event][module]},%{WORD:[event][category]},%{IPORHOST:[dns][question][name]},%{DATA:[event][dataset]},%{GREEDYDATA:[event][duplicationindicator]}
 
 # pfSense - Interfaces
-PFSMETRICS %{SYSLOGTIMESTAMP:[event][created]}\s(%{SYSLOGHOST:[log][syslog][hostname]}\s) %{PROG:[log][syslog][appname]}\:\s%{GREEDYDATA:filter_message}\\n
-PFINTERFACE %{WORD:[interface][name]},%{IPORHOST:[interface][ipv4]},%{INT:[interface][subnet]},%{IPORHOST:[interface][ipv6]},%{IPORHOST:[interface][sugnetv6]},%{MAC:[interface][mac]},%{DATA:[interface][friendlyname]},%{WORD:[interface][source]}.%{GREEDYDATA:[interface][status]}
+PFSMETRICS %{SYSLOGTIMESTAMP:[event][created]}\s%{SYSLOGHOST:[log][syslog][hostname]}\s%{PROG:[log][syslog][appname]}\:\s%{GREEDYDATA:filter_message}\\n
+PFINTERFACE %{WORD:[interface][name]},%{IPORHOST:[interface][ipv4]},%{INT:[interface][subnet]},%{IPORHOST:[interface][ipv6]},%{IPORHOST:[interface][sugnetv6]},(%{MAC:[interface][mac]}|%{WORD:[interface][mac]}),%{DATA:[interface][friendlyname]},%{WORD:[interface][source]}.%{GREEDYDATA:[interface][status]}
 PFGATEWAY %{WORD:[gateway][interface]},%{DATA:[gateway][name]}\s\"%{IPORHOST:[gateway][monitor]}\",\"%{IPORHOST:[gateway][source]}\",%{INT:[gateway][defaultgw]},\"%{DATA:[gateway][description]}\",%{NUMBER:[gateway][delay]},%{NUMBER:[gateway][stddev]},%{NUMBER:[gateway][loss]},\"%{WORD:[gateway][status]}\",\"%{WORD:[gateway][substatus]}\"
 
 # CAPTIVE PORTAL (Optional)
