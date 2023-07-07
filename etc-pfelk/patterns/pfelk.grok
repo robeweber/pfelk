@@ -26,14 +26,11 @@ PFBLOCKER_IP %{SYSLOGTIMESTAMP:[event][created]}\s%{SYSLOGHOST:[log][syslog][hos
 PFBLOCKER_DNSBL %{SYSLOGTIMESTAMP:[event][created]}\s%{SYSLOGHOST:[log][syslog][hostname]}\s%{PROG:[log][syslog][appname]}\s%{NOTSPACE:[observer][name]},%{MONTH}\s%{MONTHDAY}\s%{HOUR}:%{MINUTE}:%{INT},%{GREEDYDATA:filter_message}\\n
 IPBLOCK %{NUMBER:[event][id]},%{WORD:[observer][interface][id]},%{WORD:[observer][interface][name]},%{WORD:[event][action]},%{INT:[observer][communication][ipv]},%{INT:[observer][communication][protocol]},%{DATA:[network][transport]},%{IPV4:[source][ip]},%{IPV4:[destination][ip]},%{INT:[source][port]},%{INT:[destination][port]},%{WORD:[network][direction]},%{WORD:[source][geo][country_iso_code]},%{WORD:[event][dataset]},(?<[source][cidr]>%{INT}.%{INT}.%{INT}.%{INT}/%{INT}|%{IPV4}),%{WORD:[event][category]},%{URIHOST:[source][domain]},%{HOSTNAME:[host][hostname]},%{WORD:[source][asn]},%{GREEDYDATA:[event][duplicationindicator]}
 DNSBL %{IPORHOST:[destination][address]},%{IP:[client][ip]},%{DATA:[client][useragent]},%{WORD:[event][module]},%{WORD:[event][category]},%{IPORHOST:[dns][question][name]},%{DATA:[event][dataset]},%{GREEDYDATA:[event][duplicationindicator]}
-#DNSBL %{IPORHOST:addressblocked},%{IP:fromclient},%{DATA:useragent},%{WORD:module},%{WORD:category},%{IPORHOST:addressevaluated},%{DATA:blocklist},%{GREEDYDATA:duplicationindicator}
 
 # pfSense - Interfaces
 PFSMETRICS %{SYSLOGTIMESTAMP:[event][created]}\s(%{SYSLOGHOST:[log][syslog][hostname]}\s) %{PROG:[log][syslog][appname]}\:\s%{GREEDYDATA:filter_message}\\n
 PFINTERFACE %{WORD:[interface][name]},%{IPORHOST:[interface][ipv4]},%{INT:[interface][subnet]},%{IPORHOST:[interface][ipv6]},%{IPORHOST:[interface][sugnetv6]},%{MAC:[interface][mac]},%{DATA:[interface][friendlyname]},%{WORD:[interface][source]}.%{GREEDYDATA:[interface][status]}
-#PFGATEWAY %{WORD:[gateway][interface]},%{WORD:[gateway][name]} "%{IPORHOST:[gateway][monitor]}","%{IPORHOST:[gateway][source]}",%{INT:[gateway][defaultgw]},"%{DATA:[gateway][description]}",%{NUMBER:[gateway][delay]},%{NUMBER:[gateway][stddev]},%{NUMBER:[gateway][loss]},"%{WORD:[gateway][status]}","%{WORD:[gateway][substatus]}?
 PFGATEWAY %{WORD:[gateway][interface]},%{DATA:[gateway][name]}\s\"%{IPORHOST:[gateway][monitor]}\",\"%{IPORHOST:[gateway][source]}\",%{INT:[gateway][defaultgw]},\"%{DATA:[gateway][description]}\",%{NUMBER:[gateway][delay]},%{NUMBER:[gateway][stddev]},%{NUMBER:[gateway][loss]},\"%{WORD:[gateway][status]}\",\"%{WORD:[gateway][substatus]}\"
-#PFGATEWAY %{GREEDYDATA:[gateway][content]}
 
 # CAPTIVE PORTAL (Optional)
 CAPTIVEPORTAL (%{CP_PFSENSE}|%{CP_OPNSENSE})
