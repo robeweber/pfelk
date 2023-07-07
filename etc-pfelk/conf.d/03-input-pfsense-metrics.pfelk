@@ -1,10 +1,4 @@
-# 03-inputs.pfsense
-################################################################################
-# Version: 23.03a                                                              #
-# Required: Yes                                                                #
-# Description: Sets the type, port to listen, and initial grok pattern. User   #
-# may amend at their own risk, as desired.                                     #
-################################################################################
+# 03-input-pfsense-metrics.pfelk
 #
 input {
   ## pfsense metrics ##
