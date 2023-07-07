@@ -54,6 +54,6 @@ output {
     # cacert => '/usr/share/logstash/config/certs/ca/ca.crt' #For use with Docker#
     cacert => '/etc/logstash/config/certs/http_ca.crt'
     user => "pfelk_logstash"
-    password => "***REMOVED***"
+    password => "CHANGEME"
   }
 }
