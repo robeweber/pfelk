@@ -1,0 +1,59 @@
+# 50-outputs.pfelk
+################################################################################
+# Version: 23.01                                                               #
+# Required: Yes                                                                #
+# Description: Sends enriched logs to Elasticsearch.                           #
+#                                                                              #
+################################################################################
+#
+filter {
+  if [log][syslog][appname] == "captiveportal" {
+    mutate { add_field => { "[data_stream][namespace]" => "captiveportal" } }
+  } else if [log][syslog][appname] == "dhcp" {
+    mutate { add_field => { "[data_stream][namespace]" => "dhcp" } }
+  } else if [log][syslog][appname] == "firewall" {
+    mutate { add_field => { "[data_stream][namespace]" => "firewall" } }
+  } else if "bind9" in [tags] or "dpinger" in [tags] or "ntpd" in [tags] or "web_portal" in [tags] {
+    mutate { add_field => { "[data_stream][namespace]" => "firewall_processes" } }
+  } else if [log][syslog][appname] == "haproxy" {
+    mutate { add_field => { "[data_stream][namespace]" => "haproxy" } }
+  } else if [log][syslog][appname] == "nginx" {
+    mutate { add_field => { "[data_stream][namespace]" => "nginx" } }
+  } else if [log][syslog][appname] == "openvpn" {
+    mutate { add_field => { "[data_stream][namespace]" => "openvpn" } }
+  } else if [log][syslog][appname] == "unbound" {
+    mutate { add_field => { "[data_stream][namespace]" => "unbound" } }
+  } else if [log][syslog][appname] == "suricata" {
+    mutate { add_field => { "[data_stream][namespace]" => "suricata" } }
+  } else if [log][syslog][appname] == "snort" {
+    mutate { add_field => { "[data_stream][namespace]" => "snort" } }
+  } else if [log][syslog][appname] == "squid" {
+    mutate { add_field => { "[data_stream][namespace]" => "squid" } }
+  } else if [log][syslog][appname] == "pfblocker-ip" {
+    mutate { add_field => { "[data_stream][namespace]" => "ipblock" } }
+  } else if [log][syslog][appname] == "pfblocker-dnsbl" {
+    mutate { add_field => { "[data_stream][namespace]" => "dnsbl" } }
+  } else if [log][syslog][appname] == "interfaces" {
+    mutate { add_field => { "[data_stream][namespace]" => "pfinterfaces" } }
+  } else if [log][syslog][appname] == "gateways" {
+    mutate { add_field => { "[data_stream][namespace]" => "pfgateways" } }
+  } else {
+    mutate { add_field => { "[data_stream][namespace]" => "unknown" } }
+  }
+}
+output {
+  elasticsearch {
+    data_stream => "true"
+    data_stream_type => "logs"
+    data_stream_dataset => "pfelk"
+    ###  Unsecured Method ###
+    # hosts => ["http://localhost:9200"]
+    ### X-Pack Security Method ###
+    hosts => ["https://localhost:9200"]
+    # ssl => true
+    # cacert => '/usr/share/logstash/config/certs/ca/ca.crt' #For use with Docker#
+    cacert => '/etc/logstash/config/certs/http_ca.crt'
+    user => "pfelk_logstash"
+    password => "***REMOVED***"
+  }
+}
