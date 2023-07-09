@@ -14,3 +14,6 @@ https://github.com/pfelk/pfelk/discussions/486#discussion-5359284
 
 pfSense Interface and Gateway Monitoring:
 https://github.com/pfelk/pfelk/discussions/487#discussion-5376866
+
+Updates:
+2023-07-09: I created a dashboard to view the most relevant pfBlockerNG data-stream elements. I have exported my dashboard not including related items. Hope this works for you when importing. Let me know if I have to share it in another way.
